@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Emoji</title>
+    <link rel="stylesheet" href="/static/bulma.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Smart Contract App</h1>
+        <p class="subtitle">This is a simple app to run some quick analysis on your smart contracts. You can query a contract address posted to <a href="https://etherscan.io">etherscan.io</a> the output of the app will be logged forever (for now ;)).</p>
+        <form action="/" method="POST">
+
+          <div class="field">
+            <p class="subtitle">Input form</p>
+          TODO: add input form field, tie it to a variable in main.py
+            
+          </div>
+          
+          <div class="field">
+            <p class="subtitle">Feedback, how did we do?</p>
+            <div class="control">
+              {% for e in emoji %}
+              <input class="button is-large" type="submit" name="emoji" value="{{ e }}" />
+              {% endfor %}
+            </div>
+          </div>
+          
+        </form>
+
+        {% for emoji, count in counts %}
+          <p class="title">
+            {{ emoji }} {{ count }}
+          </p>
+        {% endfor %}
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
