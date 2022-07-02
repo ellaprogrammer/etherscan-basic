@@ -13,7 +13,6 @@
 
           <div class="field">
             <p class="subtitle">Transaction hash</p>
-          TODO: add input form field, tie it to a variable in main.py
             <div class="control">
             <input class="button is-large" type="input" name="transaction" value="{{ t }}" />
             </div>
@@ -24,22 +23,22 @@
             {% endfor %}
           </div>
           
-          <div class="field">
+<!--           <div class="field">
             <p class="subtitle">Feedback, how did we do?</p>
             <div class="control">
               {% for e in emoji %}
               <input class="button is-large" type="submit" name="emoji" value="{{ e }}" />
               {% endfor %}
             </div>
-          </div>
+          </div> -->
           
         
 
-        {% for emoji, count in counts %}
+<!--         {% for emoji, count in counts %}
           <p class="title">
             {{ emoji }} {{ count }}
           </p>
-        {% endfor %}
+        {% endfor %} -->
           </form>
         </div>
       </div>
