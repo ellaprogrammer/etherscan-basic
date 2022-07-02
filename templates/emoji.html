@@ -12,9 +12,16 @@
         <form action="/" method="POST">
 
           <div class="field">
-            <p class="subtitle">Input form</p>
+            <p class="subtitle">Transaction hash</p>
           TODO: add input form field, tie it to a variable in main.py
-            
+            <div class="control">
+            <input class="button is-large" type="input" name="transaction" value="{{ t }}" />
+            </div>
+            {% for address in addresses %}
+              <p class="title">
+                {{ address }} 
+              </p>
+            {% endfor %}
           </div>
           
           <div class="field">

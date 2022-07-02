@@ -27,12 +27,25 @@ def comments():
 				except KeyError:
 					counts[emoji] = 1
 				db['emoji'] = counts
+    if flask.request.method == "POST" and 'transaction' in flask.request.form:
+      output_addresses = ['abcd'
 		sorted_counts = sorted(counts.items(), key=lambda el: el[1], reverse=True)
 		return flask.render_template(
-			'emoji.html', emoji=EMOJI, counts=sorted_counts)
+			'emoji.html', emoji=EMOJI, counts=sorted_counts, addresses=output_addresses)
 	except Exception as e:
 		logging.exception('failed to database')
 		flask.abort(500, description=str(e) + ': ' + traceback.format_exc())
+
+  # if flask.request.method == "POST" and 'transaction' in flask.request.form:
+  #     try:
+  #       # make call to API
+  #       # return with render
+  #       output_addresses = ['abcd']
+  #       return flask.render_template(
+  # 			'emoji.html', emoji=EMOJI, counts=sorted_counts, addresses=output_addresses)
+  #     except Exception as e:
+  #       logging.exception('failed to fetch transaction id')
+  #       flask.abort(500, desciption=str(e) + ': ' + traceback.format_exc())
 
 
 app.run('0.0.0.0')
