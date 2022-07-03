@@ -15,12 +15,16 @@
             <p class="subtitle">Transaction hash</p>
             <div class="control">
             <input class="button is-large" type="input" name="transaction" value="{{ t }}" />
-            </div>
+            
+            <p class="subtitle">Wallet address</p>
+            <input class="button is-large" type="input" name="wallet_address" value="{{ w }}" />
+            <input class="button is-large" type="submit" />
             {% for address in addresses %}
-              <p class="title">
+              <p class="subtitle" Output: >
                 {{ address }} 
               </p>
             {% endfor %}
+            </div>
           </div>
           
 <!--           <div class="field">

@@ -34,14 +34,14 @@ def comments():
         if x == "result":
           # print(y[0])
           for z in y:
-            if z["from"] == "0xb2ebc9b3a788afb1e942ed65b59e9e49a1ee500d":
+            if z["from"] == flask.request.form['wallet_address']:
               count += 1
       print(count)
       # json_formatted_str = json.dumps(dict, indent=2)
       # print(json_formatted_str[13000:18000])
       
       # transaction_matches = json_formatted_str[13000:18000]
-      transaction_matches = ["status"]
+      transaction_matches = [count]
       # output_addresses = output of API call
       output_addresses = transaction_matches
 
