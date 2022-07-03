@@ -7,17 +7,13 @@ from replit import db
 
 import urllib.request, json
 
-
-EMOJI = ['💯', '❤️', '🥳', '💩']
-# my_secret = os.environ['api_key']
-
 app = flask.Flask(__name__)
 
 @app.errorhandler(500)
 def internal_server_error(e: str):
   return flask.jsonify(error=str(e)), 500
 
-# how to route to diff endpoint?
+# FIXME: lets set up a DB endpoint
 @app.route('/db', methods=['GET, POST'])
 def info():
   for key in db.keys():
@@ -26,18 +22,26 @@ def info():
 @app.route('/', methods=['GET', 'POST'])
 def comments():
   try:
-    # counts = db.get('emoji', {})
     output_addresses = ['']
     if flask.request.method == "POST" and 'transaction' in flask.request.form:
       transaction_hash = [flask.request.form['transaction']]
-      url = "https://api.etherscan.io/api?module=account&action=txlist&address=0x25ed58c027921e14d86380ea2646e3a1b5c55a8b&startblock=0&endblock=99999999&sort=asc&apikey={}".format(os.environ.get('ETHERSCAN_API_KEY'))
+      url = "https://api.etherscan.io/api?module=account&action=txlist&address=" + transaction_hash[0] + "&startblock=0&endblock=99999999&sort=asc&apikey=" + os.environ['ETHERSCAN_API_KEY']
       response = urllib.request.urlopen(url)
       data = response.read()
       dict = json.loads(data)
-      json_formatted_str = json.dumps(dict, indent=2)
-      print(json_formatted_str.blockNumber['13547831'])
+      count = 0
+      for x, y in dict.items():
+        if x == "result":
+          # print(y[0])
+          for z in y:
+            if z["from"] == "0xb2ebc9b3a788afb1e942ed65b59e9e49a1ee500d":
+              count += 1
+      print(count)
+      # json_formatted_str = json.dumps(dict, indent=2)
+      # print(json_formatted_str[13000:18000])
       
-      transaction_matches = ['address_requested_found1,address_requested_found2']
+      # transaction_matches = json_formatted_str[13000:18000]
+      transaction_matches = ["status"]
       # output_addresses = output of API call
       output_addresses = transaction_matches
 
@@ -47,17 +51,6 @@ def comments():
       if len(joined_string) > 70:
         joined_string = joined_string[:70] + '_ABBREV'  
       db[joined_string] = output_addresses
-    
-      
-      # if flask.request.method == "POST" and 'emoji' in flask.request.form:
-    #   emoji = flask.request.form['emoji']
-    #   if emoji in EMOJI:
-    #     try:
-    #       counts[emoji] += 1
-    #     except KeyError:
-    #       counts[emoji] = 1
-    #     db['emoji'] = counts
-    # sorted_counts = sorted(counts.items(), key=lambda el: el[1], reverse=True)
 
       
     return flask.render_template(
